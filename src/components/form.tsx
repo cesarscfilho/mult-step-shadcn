@@ -16,8 +16,8 @@ import { useState } from "react"
 import OtpInput from "./otp-input"
 
 
-export function Form() {
-  const [step, setStep] = useState(0)
+export const Form = () => {
+  const [step, setStep] = useState<number>(0)
   const [otp, setOtp] = useState<string>('')
 
   const changeOtp = (value: string) => setOtp(value.trim())
@@ -27,11 +27,11 @@ export function Form() {
       <CardHeader className="space-y-1 ">
         <CardTitle className="text-2xl">Login</CardTitle>
         <CardDescription>
-          Enter your email below to create your account
+          Enter your email below to create your account {step}
         </CardDescription>
       </CardHeader>
       <CardContent className="grid gap-4">
-        
+
         {step === 0 && 
           <div className="grid gap-2">
             <Label htmlFor="phone">Phone</Label>
@@ -41,12 +41,21 @@ export function Form() {
 
         {step === 1 && 
           <div className="grid gap-2">
+            <p className="text-center text-muted-foreground">Paste code</p>
             <OtpInput value={otp} valueLength={4} onChange={changeOtp} />
           </div>
         }
 
+        {step === 2 && 
+          <div className="grid gap-2 space-y-2">
+            <p className="text-center text-muted-foreground">Verified number</p>
+            <Button variant={"default"} onClick={() => alert("submit")} className="w-full">Entrar</Button>
+          </div>
+        }
+
       </CardContent>
-      <CardFooter>
+      <CardFooter className="flex gap-3">
+        <Button variant={"secondary"} onClick={() => setStep(step - 1)} className="w-full">Back</Button>
         <Button onClick={() => setStep(step + 1)} className="w-full">Next</Button>
       </CardFooter>
     </Card>
