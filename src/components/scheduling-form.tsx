@@ -24,6 +24,7 @@ import { pt } from 'date-fns/locale'
 import { Select, SelectContent, SelectItem, SelectTrigger, SelectValue } from "./ui/select";
 import { CalendarIcon } from "lucide-react";
 import { useEffect } from "react";
+import { Label } from "@radix-ui/react-label";
 
 type FormData = {
   step: number;
@@ -44,13 +45,13 @@ const firstStepSchema = z.object({
 
 const secondStepSchema = firstStepSchema.extend({
   step: z.literal(2),
-  phone: z.string().max(15),
-  name: z.string(),
+  phone: z.string().max(15).min(15),
+  name: z.string().min(4),
 });
 
 const thirdStepSchema = secondStepSchema.extend({
 step: z.literal(3),
-code: z.string(),
+code: z.string().min(4),
 });
 
 const fourthStageScheme = secondStepSchema.extend({
@@ -125,7 +126,7 @@ export const SchedulingForm = () => {
           name="service"
           render={({ field }) => (
           <FormItem>
-              <FormLabel>Serviço</FormLabel>
+              <Label>Serviço</Label>
               <Select onValueChange={field.onChange} defaultValue={field.value}>
               <FormControl>
                   <SelectTrigger>
@@ -151,7 +152,7 @@ export const SchedulingForm = () => {
             name="date"
             render={({ field }) => (
           <FormItem className="flex flex-col">
-            <FormLabel>Data do serviço</FormLabel>
+            <Label>Data do serviço</Label>
             <Popover>
               <PopoverTrigger asChild>
                 <FormControl>
@@ -212,7 +213,7 @@ export const SchedulingForm = () => {
             name="hour"
             render={({ field }) => (
             <FormItem>
-                <FormLabel>Horário do serviço</FormLabel>
+                <Label>Horário do serviço</Label>
                 <Select onValueChange={field.onChange} defaultValue={field.value}>
                 <FormControl>
                     <SelectTrigger>
@@ -244,7 +245,7 @@ export const SchedulingForm = () => {
             name="phone"
             render={({ field }) => (
               <FormItem>
-                <FormLabel>Número de celular</FormLabel>
+                <Label>Número de celular</Label>
                 <FormControl>
                   <Input
                     placeholder="Phone..." {...field} />
@@ -257,7 +258,7 @@ export const SchedulingForm = () => {
             name="name"
             render={({ field }) => (
               <FormItem>
-                <FormLabel>Nome completo</FormLabel>
+                <Label>Nome completo</Label>
                 <FormControl>
                   <Input
                     placeholder="Name..." {...field} />

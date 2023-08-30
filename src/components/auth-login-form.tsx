@@ -34,6 +34,7 @@ const secondStepSchema = firstStepSchema.extend({
   step: z.literal(2),
   code: z.string().min(4).max(4),
 });
+
 const thirdStepSchema = secondStepSchema.extend({
   step: z.literal(3),
 });
