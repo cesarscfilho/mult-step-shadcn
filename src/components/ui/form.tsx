@@ -192,7 +192,7 @@ function FormStep({
     <div className="flex flex-col gap-4">
       <div className="px-0 pb-0">
         <div className="w-full text-center">
-          {currentStep !== 1 ? (
+          {(currentStep !== 1) ? (
             <Button
             className={cn(
               buttonVariants({ variant: "ghost" }),

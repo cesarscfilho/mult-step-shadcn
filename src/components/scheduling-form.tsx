@@ -17,12 +17,13 @@ import { Button } from "@/components/ui/button";
 import { toast } from "@/components/ui/use-toast";
 import OtpInput from "./otp-input";
 import { Popover, PopoverContent, PopoverTrigger } from "./ui/popover";
-import { cn } from "@/lib/utils";
+import { cn, formatPhoneNumber } from "@/lib/utils";
 import { Calendar } from "./ui/calendar";
 import { format } from 'date-fns'
 import { pt } from 'date-fns/locale'
 import { Select, SelectContent, SelectItem, SelectTrigger, SelectValue } from "./ui/select";
 import { CalendarIcon } from "lucide-react";
+import { useEffect } from "react";
 
 type FormData = {
   step: number;
@@ -43,7 +44,7 @@ const firstStepSchema = z.object({
 
 const secondStepSchema = firstStepSchema.extend({
   step: z.literal(2),
-  phone: z.string(),
+  phone: z.string().max(15),
   name: z.string(),
 });
 
@@ -53,7 +54,7 @@ code: z.string(),
 });
 
 const fourthStageScheme = secondStepSchema.extend({
-    step: z.literal(4),
+  step: z.literal(4),
 });
 
 const schema = z.discriminatedUnion("step", [
@@ -106,6 +107,10 @@ export const SchedulingForm = () => {
     }
   };
 
+  useEffect(() => {
+    form.setValue('phone', formatPhoneNumber(phoneState))
+  }, [phoneState, form.setValue, form])
+
   return (
     <Form {...form}>
       <form className="space-y-10" onSubmit={form.handleSubmit(onSubmit)}>
@@ -116,30 +121,29 @@ export const SchedulingForm = () => {
           onPrevStepClick={prevStep}
         >
         <FormField
-            control={form.control}
-            name="service"
-            render={({ field }) => (
-            <FormItem>
-                <FormLabel>Serviço</FormLabel>
-                <Select onValueChange={field.onChange} defaultValue={field.value}>
-                <FormControl>
-                    <SelectTrigger>
-                    <SelectValue defaultValue={field.value} />
-                    </SelectTrigger>
-                </FormControl>
-                <SelectContent>
-                    {services.map((service) => {
-                    return (
-                        <SelectItem value={service.toString()} key={service}>
-                        {service}
-                        </SelectItem>
-                    )
-                    })}
-                </SelectContent>
-                </Select>
-                <FormMessage />
-            </FormItem>
-            )}
+          control={form.control}
+          name="service"
+          render={({ field }) => (
+          <FormItem>
+              <FormLabel>Serviço</FormLabel>
+              <Select onValueChange={field.onChange} defaultValue={field.value}>
+              <FormControl>
+                  <SelectTrigger>
+                  <SelectValue defaultValue={field.value} />
+                  </SelectTrigger>
+              </FormControl>
+              <SelectContent>
+                  {services.map((service) => {
+                  return (
+                      <SelectItem value={service.toString()} key={service}>
+                      {service}
+                      </SelectItem>
+                  )
+                  })}
+              </SelectContent>
+              </Select>
+          </FormItem>
+          )}
         />
 
         <FormField
@@ -199,7 +203,6 @@ export const SchedulingForm = () => {
                 />
               </PopoverContent>
             </Popover>
-            <FormMessage />
           </FormItem>
         )}
       />
@@ -226,7 +229,6 @@ export const SchedulingForm = () => {
                     })}
                 </SelectContent>
                 </Select>
-                <FormMessage />
             </FormItem>
             )}
         /> 
@@ -244,10 +246,9 @@ export const SchedulingForm = () => {
               <FormItem>
                 <FormLabel>Número de celular</FormLabel>
                 <FormControl>
-                  <PatternInput format="(##) #####-####"
+                  <Input
                     placeholder="Phone..." {...field} />
                 </FormControl>
-                <FormMessage />
               </FormItem>
             )}
           />
@@ -261,7 +262,6 @@ export const SchedulingForm = () => {
                   <Input
                     placeholder="Name..." {...field} />
                 </FormControl>
-                <FormMessage />
               </FormItem>
             )}
           />
@@ -282,7 +282,6 @@ export const SchedulingForm = () => {
                 <FormControl>
                   <OtpInput valueLength={4} {...field} />
                 </FormControl>
-                <FormMessage />
               </FormItem>
             )}
           />
