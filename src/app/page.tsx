@@ -1,9 +1,20 @@
-import { Form } from "@/components/form";
+import { Metadata } from "next"
 
-export default function Home() {
+import { AuthLoginForm } from "@/components/auth-login-form"
+import { SchedulingForm } from "@/components/scheduling-form"
+
+export const metadata: Metadata = {
+  title: "Login",
+}
+
+export default function LoginPage() {
   return (
-    <main className="flex min-h-screen flex-col items-center justify-center">
-     <Form />
-    </main>
+    <div className="container flex h-screen w-screen flex-col items-center justify-center">
+      <div className="mx-auto flex w-full flex-col justify-center space-y-12 sm:w-[350px]">
+      <span className="text-center text-muted-foreground">Logo aqui</span>
+      {/* <AuthLoginForm /> */}
+      <SchedulingForm />
+      </div>
+    </div>
   )
 }

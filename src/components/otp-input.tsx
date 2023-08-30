@@ -2,15 +2,13 @@
 
 import React, { useMemo } from 'react'
 import { Input } from './ui/input'
+import { RE_DIGIT } from '@/lib/utils'
 
 interface OtpInputProps {
   value: string
   valueLength: number
   onChange: (value: string) => void
 }
-
-const RE_DIGIT = new RegExp(/^\d+$/)
-
 
 export default function OtpInput({
   value,
@@ -131,7 +129,7 @@ export default function OtpInput({
   }
 
   return (
-    <div className="flex gap-5">
+    <div className="flex gap-5 items-center justify-center">
       {valueItems.map((digit, idx) => (
         <Input
           key={idx}
