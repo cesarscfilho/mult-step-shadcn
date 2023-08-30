@@ -10,16 +10,16 @@ export const metadata: Metadata = {
 
 export default function LoginPage() {
   return (
-      <Tabs defaultValue="login">
+      <Tabs defaultValue="example1">
         <div className="container flex h-screen w-screen flex-col items-center justify-center">
           <div className="mx-auto flex w-full flex-col justify-center space-y-12 sm:w-[350px]">
             <TabsList className="absolute top-10 mx-auto translate-x-1/2">
-              <TabsTrigger value="login">Login</TabsTrigger>
-              <TabsTrigger value="schedulign">Schedulign</TabsTrigger>
+              <TabsTrigger value="example1">Exemple 1</TabsTrigger>
+              <TabsTrigger value="example2">Example 2</TabsTrigger>
             </TabsList>
-          <span className="text-center text-muted-foreground">Logo aqui</span>
-            <TabsContent value="login"><AuthLoginForm /></TabsContent>
-            <TabsContent value="schedulign"> <SchedulingForm /></TabsContent>
+          <span className="text-center text-muted-foreground">Logo</span>
+            <TabsContent value="example1"><AuthLoginForm /></TabsContent>
+            <TabsContent value="example2"> <SchedulingForm /></TabsContent>
           </div>
         </div>
       </Tabs>

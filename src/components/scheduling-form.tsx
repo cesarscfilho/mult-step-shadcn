@@ -66,8 +66,8 @@ const schema = z.discriminatedUnion("step", [
 ]);
 
 export const SchedulingForm = () => {
-    const services = ['Depilação facial', 'Corte']
-    const hours = ['12:30 - 13:30', '13:30 - 14:30', '15:30 - 16:30']
+    const items123 = ['Item 1', 'Item 2', "Item 3"]
+    const itemsABC = ['Item A', 'Item B', "Item C"]
 
   const maxSteps = 4;
 
@@ -118,7 +118,8 @@ export const SchedulingForm = () => {
         <FormStep
           step={1}
           currentStep={step}
-          title="Você está entrando na agenda de Salão Pratrícia Pimentel"
+          title="Lorem Ipsum is simply dummy text."
+          description="Lorem Ipsum has been a galley of type and scrambled it to make a type specimen book"
           onPrevStepClick={prevStep}
         >
         <FormField
@@ -126,7 +127,7 @@ export const SchedulingForm = () => {
           name="service"
           render={({ field }) => (
           <FormItem>
-              <Label>Serviço</Label>
+              <Label>Items 123</Label>
               <Select onValueChange={field.onChange} defaultValue={field.value}>
               <FormControl>
                   <SelectTrigger>
@@ -134,11 +135,11 @@ export const SchedulingForm = () => {
                   </SelectTrigger>
               </FormControl>
               <SelectContent>
-                  {services.map((service) => {
+                  {items123.map((item, i) => {
                   return (
-                      <SelectItem value={service.toString()} key={service}>
-                      {service}
-                      </SelectItem>
+                    <SelectItem value={item.toString()} key={i}>
+                    {item}
+                    </SelectItem>
                   )
                   })}
               </SelectContent>
@@ -152,7 +153,7 @@ export const SchedulingForm = () => {
             name="date"
             render={({ field }) => (
           <FormItem className="flex flex-col">
-            <Label>Data do serviço</Label>
+            <Label>Pick a date</Label>
             <Popover>
               <PopoverTrigger asChild>
                 <FormControl>
@@ -168,7 +169,7 @@ export const SchedulingForm = () => {
                         locale: pt,
                       })
                     ) : (
-                      <span>Escolha uma data</span>
+                      <span>Pick a date</span>
                     )}
                     <CalendarIcon className="ml-auto h-4 w-4 opacity-50" />
                   </Button>
@@ -213,7 +214,7 @@ export const SchedulingForm = () => {
             name="hour"
             render={({ field }) => (
             <FormItem>
-                <Label>Horário do serviço</Label>
+                <Label>Items ABC</Label>
                 <Select onValueChange={field.onChange} defaultValue={field.value}>
                 <FormControl>
                     <SelectTrigger>
@@ -221,10 +222,10 @@ export const SchedulingForm = () => {
                     </SelectTrigger>
                 </FormControl>
                 <SelectContent>
-                    {hours.map((hour) => {
+                    {itemsABC.map((item) => {
                     return (
-                        <SelectItem value={hour.toString()} key={hour}>
-                        {hour}
+                        <SelectItem value={item.toString()} key={item}>
+                        {item}
                         </SelectItem>
                     )
                     })}
@@ -237,7 +238,8 @@ export const SchedulingForm = () => {
         <FormStep
           step={2}
           currentStep={step}
-          title="Por favor, digite o seu número de celular."
+          title="Lorem Ipsum is simply dummy text."
+          description="Lorem Ipsum has been a galley of type and scrambled it to make a type specimen book"
           onPrevStepClick={prevStep}
         >
             <FormField
@@ -245,7 +247,7 @@ export const SchedulingForm = () => {
             name="phone"
             render={({ field }) => (
               <FormItem>
-                <Label>Número de celular</Label>
+                <Label>Phone</Label>
                 <FormControl>
                   <Input
                     placeholder="Phone..." {...field} />
@@ -258,7 +260,7 @@ export const SchedulingForm = () => {
             name="name"
             render={({ field }) => (
               <FormItem>
-                <Label>Nome completo</Label>
+                <Label>Full name</Label>
                 <FormControl>
                   <Input
                     placeholder="Name..." {...field} />
@@ -271,9 +273,9 @@ export const SchedulingForm = () => {
         <FormStep
           step={3}
           currentStep={step}
-          title="Por favor, verifique o seu número de celular."
-          description={`Um código de verificação foi enviado para ${phoneState}. Insira o código abaixo.`}
-          onPrevStepClick={prevStep}
+          title="Lorem Ipsum is simply dummy text."
+          description="Lorem Ipsum has been a galley of type and scrambled it to make a type specimen book"
+         onPrevStepClick={prevStep}
         >
         <FormField
             control={form.control}
@@ -290,8 +292,8 @@ export const SchedulingForm = () => {
         <FormStep
           step={4}
           currentStep={step}
-          title="Seu número foi verificado!"
-          description="Nós agradecemos a verificação do seu número de celular. Clique em CONFIRMAR para confirmar seu agendamento."
+          title="Lorem Ipsum is simply dummy text."
+          description="Lorem Ipsum has been a galley of type and scrambled it to make a type specimen book"
           onPrevStepClick={prevStep}
         />
         <Button
@@ -302,7 +304,7 @@ export const SchedulingForm = () => {
           disabled={!form.formState.isValid}
           onClick={step === maxSteps ? undefined : nextStep}
         >
-          {step === maxSteps ? "Confirmar" : "Próximo"}
+          {step === maxSteps ? "Submit" : "Next"}
         </Button>
       </form>
     </Form>

@@ -16,7 +16,7 @@ import axios from "axios"
 import { toast } from "@/components/ui/use-toast";
 import OtpInput from "./otp-input";
 import { useCallback, useEffect, useState } from "react";
-import { formatPhoneNumber, unformatPhoneNumber } from "@/lib/utils";
+import { formatPhoneNumber } from "@/lib/utils";
 import { Label } from "./ui/label";
 
 type FormData = {
@@ -61,8 +61,6 @@ export const AuthLoginForm = () => {
   
   const step = form.watch("step");
   const phoneState = form.watch("phone");
-  const phoneUnformated = unformatPhoneNumber(phoneState)
-  const codeState = form.watch("code");
   const maxSteps = 3;
   
   const onSubmit = (values: FormData) => {
@@ -76,46 +74,6 @@ export const AuthLoginForm = () => {
     });
   }
 
-  const checkPhone = async () => {
-    console.log("Check")
-  }
-
-  const sendCodeOtp = async () => {
-    setIsLoading(true)
-    const payload = {
-      phone: phoneUnformated,
-      template: 'login-confirmation-code',
-      confirmationCodeType: 'est-login',
-    }
-
-    try {
-      await axios.post(
-        'http://ec2-3-90-42-234.compute-1.amazonaws.com:3000/auth/send-code',
-        payload,
-        )
-      } catch (error) {}
-  }
-
-  const checkCodeOtp = useCallback(async () => {
-    setIsLoading(true);
-    const payload = {
-      phone: phoneUnformated,
-      confirmationCode: codeState,
-      confirmationCodeType: 'est-login',
-    };
-
-    try {
-      const { data } = await axios.post(
-        'http://ec2-3-90-42-234.compute-1.amazonaws.com:3000/auth/confirm-code',
-        payload
-      );
-
-      if(!data.token){
-        setIsLoading(true);
-      }
-    } catch (error) {}
-  }, [phoneUnformated, codeState]);
-
   const prevStep = () => {
     if (step > 1) {
       form.setValue("step", step - 1, { shouldValidate: true });
@@ -123,31 +81,11 @@ export const AuthLoginForm = () => {
   };
 
   const nextStep = async () => {
-    if(step === 1) {
-      await sendCodeOtp()
-    }
-
-    if(step === 2) {
-      await checkCodeOtp()
-    }
-
     if (step < maxSteps) {
       setIsLoading(false)
       form.setValue("step", step + 1, { shouldValidate: true });
     }
   };
-
-  useEffect(() => {
-    if(phoneState.length === 15){
-      checkPhone()
-    }
-  }, [phoneState])
-
-  useEffect(() => {
-    if(codeState.length === 4){
-    }
-    
-  }, [codeState])
 
   useEffect(() => {
     form.setValue('phone', formatPhoneNumber(phoneState))
@@ -179,8 +117,8 @@ export const AuthLoginForm = () => {
         <FormStep
           step={2}
           currentStep={step}
-          title="Por favor, verifique o seu número de celular."
-          description={`Um código de verificação foi enviado para ${phoneState}. Insira o código abaixo.`}
+          title="Lorem Ipsum is simply dummy text."
+          description="Lorem Ipsum has been a galley of type and scrambled it to make a type specimen book"
           onPrevStepClick={prevStep}
         >
           <FormField
@@ -199,8 +137,8 @@ export const AuthLoginForm = () => {
         <FormStep
           step={3}
           currentStep={step}
-          title="Seu número foi verificado!"
-          description="Nós agradecemos a verificação do seu número de celular."
+          title="Lorem Ipsum is simply dummy text."
+          description="Lorem Ipsum has been a galley of type and scrambled it to make a type specimen book"
           onPrevStepClick={prevStep}
         >
         </FormStep>
