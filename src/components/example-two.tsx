@@ -65,7 +65,7 @@ const schema = z.discriminatedUnion("step", [
   fourthStageScheme
 ]);
 
-export const SchedulingForm = () => {
+export const ExampleTwo = () => {
     const items123 = ['Item 1', 'Item 2', "Item 3"]
     const itemsABC = ['Item A', 'Item B', "Item C"]
 

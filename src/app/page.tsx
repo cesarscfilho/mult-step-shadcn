@@ -1,7 +1,7 @@
 import { Metadata } from "next"
 
-import { AuthLoginForm } from "@/components/auth-login-form"
-import { SchedulingForm } from "@/components/scheduling-form"
+import { ExampleOne } from "@/components/example-one"
+import { ExampleTwo } from "@/components/example-two"
 import { Tabs, TabsContent, TabsList, TabsTrigger } from "@/components/ui/tabs"
 
 export const metadata: Metadata = {
@@ -18,8 +18,8 @@ export default function LoginPage() {
               <TabsTrigger value="example2">Example 2</TabsTrigger>
             </TabsList>
           <span className="text-center text-muted-foreground">Logo</span>
-            <TabsContent value="example1"><AuthLoginForm /></TabsContent>
-            <TabsContent value="example2"> <SchedulingForm /></TabsContent>
+            <TabsContent value="example1"><ExampleOne /></TabsContent>
+            <TabsContent value="example2"> <ExampleTwo /></TabsContent>
           </div>
         </div>
       </Tabs>

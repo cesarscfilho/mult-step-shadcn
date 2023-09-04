@@ -11,7 +11,6 @@ import {
 } from "@/components/ui/form";
 import { Input, PatternInput } from "@/components/ui/input";
 import { Button } from "@/components/ui/button";
-import axios from "axios"
 
 import { toast } from "@/components/ui/use-toast";
 import OtpInput from "./otp-input";
@@ -45,7 +44,7 @@ const loginSchema = z.discriminatedUnion("step", [
   thirdStepSchema,
 ]);
 
-export const AuthLoginForm = () => {
+export const ExampleOne = () => {
   const [isLoading, setIsLoading] = useState<boolean>(false)
 
   const form = useForm<FormData>({
@@ -97,7 +96,7 @@ export const AuthLoginForm = () => {
         <FormStep
           step={1}
           currentStep={step}
-          title="Você está entrando na agenda de Salão Pratrícia Pimentel"
+          title="Lorem Ipsum is simply dummy text."
           onPrevStepClick={prevStep}
         >
         <FormField
@@ -105,7 +104,7 @@ export const AuthLoginForm = () => {
           name="phone"
           render={({ field }) => (
             <FormItem>
-              <Label>Número de celular</Label>
+              <Label>Phone</Label>
               <FormControl>
                 <Input 
                   placeholder="(27) 12345-6789" {...field} />
@@ -151,7 +150,7 @@ export const AuthLoginForm = () => {
           disabled={!form.formState.isValid || isLoading}
           onClick={step === maxSteps ? undefined : nextStep}
         >
-          {step === maxSteps ? "Entrar" : "Próximo"}
+          {step === maxSteps ? "Submit" : "Next"}
         </Button>
       </form>
     </Form>
